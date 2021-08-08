@@ -1,9 +1,10 @@
 import Head from "next/head";
-import fs from "fs";
+// import fs from "fs";
 import { useEffect } from "react";
 export default function Home({ pages }) {
     useEffect(() => {
-        console.log(`pages`, pages);
+        // console.log(`pages`, pages);
+        console.log(`pages`, process.env.NODE_ENV);
     }, [pages]);
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -56,38 +57,38 @@ export default function Home({ pages }) {
 }
 
 export async function getServerSideProps() {
-    const baseUrl = {
-        development: "http://localhost:3000",
-        production: "https://front-end-challenges-theta.vercel.app",
-    }[process.env.NODE_ENV];
-    console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
-    const staticPages = fs
-        .readdirSync("pages")
-        .filter((staticPage) => {
-            return ![
-                "_app.js",
-                "_document.js",
-                "_error.js",
-                "sitemap.xml.js",
-                "api",
-                "index.js",
-            ].includes(staticPage);
-        })
-        .map((staticPagePath) => {
-            return {
-                url: `${baseUrl}/${staticPagePath.substr(
-                    0,
-                    staticPagePath.lastIndexOf(".")
-                )}`,
-                name: staticPagePath
-                    .replace("-", " ")
-                    .substr(0, staticPagePath.lastIndexOf(".")),
-            };
-        });
+    // const baseUrl = {
+    //     development: "http://localhost:3000",
+    //     production: "https://front-end-challenges-theta.vercel.app",
+    // }[process.env.NODE_ENV];
+    // const staticPages = fs
+    //     .readdirSync("pages")
+    //     .filter((staticPage) => {
+    //         return ![
+    //             "_app.js",
+    //             "_document.js",
+    //             "_error.js",
+    //             "sitemap.xml.js",
+    //             "api",
+    //             "index.js",
+    //         ].includes(staticPage);
+    //     })
+    //     .map((staticPagePath) => {
+    //         return {
+    //             url: `${baseUrl}/${staticPagePath.substr(
+    //                 0,
+    //                 staticPagePath.lastIndexOf(".")
+    //             )}`,
+    //             name: staticPagePath
+    //                 .replace("-", " ")
+    //                 .substr(0, staticPagePath.lastIndexOf(".")),
+    //         };
+    //     });
 
     return {
         props: {
-            pages: staticPages,
+            // pages: staticPages,
+            pages: [],
         },
     };
 }
