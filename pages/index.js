@@ -1,5 +1,6 @@
 import Head from "next/head";
 import fs from "fs";
+import path from "path";
 import { useEffect } from "react";
 export default function Home({ pages, serverError }) {
     useEffect(() => {
@@ -63,9 +64,9 @@ export async function getServerSideProps() {
             development: "http://localhost:3000",
             production: "https://front-end-challenges-theta.vercel.app",
         }[process.env.NODE_ENV];
-
+        const dir = path.resolve("./", "pages");
         staticPages = fs
-            .readdirSync("pages")
+            .readdirSync(dir)
             .filter((staticPage) => {
                 return ![
                     "_app.js",
