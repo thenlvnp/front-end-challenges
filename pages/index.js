@@ -60,7 +60,6 @@ export async function getServerSideProps() {
         development: "http://localhost:3000",
         production: "https://front-end-challenges-theta.vercel.app",
     }[process.env.NODE_ENV];
-
     const staticPages = fs
         .readdirSync("pages")
         .filter((staticPage) => {
