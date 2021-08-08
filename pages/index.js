@@ -1,7 +1,10 @@
 import Head from "next/head";
 import fs from "fs";
 import { useEffect } from "react";
-export default function Home({ pages }) {
+export default function Home({ pages, serverError }) {
+    useEffect(() => {
+        console.log(`serverError`, serverError);
+    }, [serverError]);
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
             <Head>
@@ -53,7 +56,8 @@ export default function Home({ pages }) {
 }
 
 export async function getServerSideProps() {
-    let staticPages = [];
+    let staticPages = [],
+        serverError = "";
     try {
         const baseUrl = {
             development: "http://localhost:3000",
@@ -84,12 +88,13 @@ export async function getServerSideProps() {
                 };
             });
     } catch (error) {
-        console.log(`error`, error);
+        serverError = error;
     }
 
     return {
         props: {
             pages: staticPages,
+            serverError,
         },
     };
 }
