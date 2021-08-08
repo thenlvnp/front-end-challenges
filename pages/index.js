@@ -58,7 +58,7 @@ export default function Home({ pages }) {
 export async function getServerSideProps() {
     const baseUrl = {
         development: "http://localhost:3000",
-        production: "https://front-end-challenges-theta.vercel.app/",
+        production: "https://front-end-challenges-theta.vercel.app",
     }[process.env.NODE_ENV];
 
     const staticPages = fs
